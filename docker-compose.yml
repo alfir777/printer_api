@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  redis:
+    image: redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+  wkhtmltopdf-aas:
+    image: openlabs/docker-wkhtmltopdf-aas:latest
+    ports:
+      - '49490:80'
+    volumes:
+      - .:/data
+  postgres:
+    image: postgres:9.6
+    env_file:
+      - .env
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5532:5432"
+    environment:
+      - "POSTGRES_DB=${DATABASES_NAME}"
+      - "POSTGRES_USER=${DATABASES_USER}"
+      - "POSTGRES_PASSWORD=${DATABASES_PASSWORD}"

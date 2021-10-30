@@ -1,0 +1,7 @@
+/.idea/
+/venv/
+/config/static/
+/config/core/migrations/
+*.log
+.env
+probe.py
