@@ -5,3 +5,5 @@
 *.log
 .env
 probe.py
+.coverage
+/htmlcov/
