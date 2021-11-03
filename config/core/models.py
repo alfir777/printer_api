@@ -11,6 +11,9 @@ class Printer(models.Model):
     check_type = models.CharField(max_length=150, choices=check_type_choices, verbose_name='Тип чека')
     point_id = models.IntegerField(verbose_name='точка')
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'Принтер'
         verbose_name_plural = 'Принтеры'
@@ -30,7 +33,10 @@ class Check(models.Model):
         ('printed', 'printed'),
     )
     status = models.CharField(max_length=150, choices=status_choices, verbose_name='статус чека')
-    pdf_file = models.FileField(upload_to='pdf', blank=True, verbose_name='ссылка на созданный PDF-файл')
+    pdf_file = models.FileField(upload_to='pdf', blank=True, verbose_name='ссылка на созданный PDF-файл', default=None)
+
+    def __str__(self):
+        return f'Чек № {self.pk}'
 
     class Meta:
         verbose_name = 'Чек'
