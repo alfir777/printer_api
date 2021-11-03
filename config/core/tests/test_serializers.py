@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 from core.models import Printer, Check
@@ -7,6 +8,7 @@ from core.serializers import ChecksSerializer
 class ChecksSerializerTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.user = User.objects.create(username='test_username')
         printer1 = Printer.objects.create(
             name='Printer 1',
             api_key='Ключ доступа к API',
@@ -47,10 +49,11 @@ class ChecksSerializerTestCase(TestCase):
         )
 
     def test_ok(self):
+        self.client.force_login(self.user)
         serializer_data = ChecksSerializer([self.check1, self.check2], many=True).data
         expected_data = [
             {
-                "id": 3,
+                "id": self.check1.pk,
                 "type": "kitchen",
                 "order": {
                     "id": 123456,
@@ -79,7 +82,7 @@ class ChecksSerializerTestCase(TestCase):
                 "printer_id": 3
             },
             {
-                "id": 4,
+                "id": self.check2.pk,
                 "type": "client",
                 "order": {
                     "id": 123456,
@@ -108,4 +111,6 @@ class ChecksSerializerTestCase(TestCase):
                 "printer_id": 4
             },
         ]
+        print(expected_data)
+        print(serializer_data)
         self.assertEqual(expected_data, serializer_data)
