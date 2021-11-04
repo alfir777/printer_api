@@ -1,0 +1,342 @@
+[
+{
+    "model": "core.printer",
+    "pk": 1,
+    "fields": {
+        "name": "Принтер менеджера",
+        "api_key": "123",
+        "check_type": "client",
+        "point_id": 1
+    }
+},
+{
+    "model": "core.printer",
+    "pk": 2,
+    "fields": {
+        "name": "Принтер кухни",
+        "api_key": "12345",
+        "check_type": "kitchen",
+        "point_id": 1
+    }
+},
+{
+    "model": "core.check",
+    "pk": 1,
+    "fields": {
+        "printer_id": 2,
+        "type": "kitchen",
+        "order": {
+            "id": 123456,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "rendered",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 2,
+    "fields": {
+        "printer_id": 1,
+        "type": "client",
+        "order": {
+            "id": 123460,
+            "items": [
+                {
+                    "name": "Пицца",
+                    "quantity": 1,
+                    "unit_price": 260
+                },
+                {
+                    "name": "Филадельфия",
+                    "quantity": 1,
+                    "unit_price": 300
+                }
+            ],
+            "price": 560,
+            "client": {
+                "name": "Максим",
+                "phone": 9173331142
+            },
+            "address": "г. Москва, ул. Московская, д. 102",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 4,
+    "fields": {
+        "printer_id": 1,
+        "type": "client",
+        "order": {
+            "id": 123457,
+            "items": [
+                {
+                    "name": "Пицца",
+                    "quantity": 1,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Филадельфия",
+                    "quantity": 1,
+                    "unit_price": 400
+                }
+            ],
+            "price": 650,
+            "client": {
+                "name": "Петр",
+                "phone": 9173332242
+            },
+            "address": "г. Уфа, ул. Московская, д. 102",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 5,
+    "fields": {
+        "printer_id": 1,
+        "type": "client",
+        "order": {
+            "id": 123466,
+            "items": [
+                {
+                    "name": "Пицца",
+                    "quantity": 1,
+                    "unit_price": 260
+                },
+                {
+                    "name": "Филадельфия",
+                    "quantity": 2,
+                    "unit_price": 600
+                }
+            ],
+            "price": 860,
+            "client": {
+                "name": "Максим",
+                "phone": 9173331142
+            },
+            "address": "г. Москва, ул. Московская, д. 102",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 6,
+    "fields": {
+        "printer_id": 1,
+        "type": "kitchen",
+        "order": {
+            "id": 123460,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 7,
+    "fields": {
+        "printer_id": 1,
+        "type": "kitchen",
+        "order": {
+            "id": 123461,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 8,
+    "fields": {
+        "printer_id": 2,
+        "type": "kitchen",
+        "order": {
+            "id": 123461,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "printed",
+        "pdf_file": "pdf/123461_kitchen.pdf"
+    }
+},
+{
+    "model": "core.check",
+    "pk": 9,
+    "fields": {
+        "printer_id": 1,
+        "type": "client",
+        "order": {
+            "id": 123457,
+            "items": [
+                {
+                    "name": "Пицца",
+                    "quantity": 1,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Филадельфия",
+                    "quantity": 1,
+                    "unit_price": 400
+                }
+            ],
+            "price": 650,
+            "client": {
+                "name": "Петр",
+                "phone": 9173332242
+            },
+            "address": "г. Уфа, ул. Московская, д. 102",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 10,
+    "fields": {
+        "printer_id": 1,
+        "type": "kitchen",
+        "order": {
+            "id": 123460,
+            "items": [
+                {
+                    "name": "Пицца",
+                    "quantity": 1,
+                    "unit_price": 260
+                },
+                {
+                    "name": "Филадельфия",
+                    "quantity": 1,
+                    "unit_price": 300
+                }
+            ],
+            "price": 560,
+            "client": {
+                "name": "Максим",
+                "phone": 9173331142
+            },
+            "address": "г. Москва, ул. Московская, д. 102",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 11,
+    "fields": {
+        "printer_id": 1,
+        "type": "kitchen",
+        "order": {
+            "id": 123457,
+            "items": [
+                {
+                    "name": "Пицца",
+                    "quantity": 1,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Филадельфия",
+                    "quantity": 1,
+                    "unit_price": 400
+                }
+            ],
+            "price": 650,
+            "client": {
+                "name": "Петр",
+                "phone": 9173332242
+            },
+            "address": "г. Уфа, ул. Московская, д. 102",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+}
+]

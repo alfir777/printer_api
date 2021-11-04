@@ -1,26 +1,14 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse, HttpResponse
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import BasePermission, SAFE_METHODS
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Check, Printer
-from .serializers import ChecksSerializer
-
-
-class ReadOnly(BasePermission):
-    def has_permission(self, request, view):
-        return request.method in SAFE_METHODS
-
-
-class ReadOnlyApiKey(BasePermission):
-    def has_permission(self, request, view):
-        if request.method == 'DELETE':
-            return False
-        return request.method in SAFE_METHODS
+from .serializers import ChecksSerializer, CheckOrderSerializer
 
 
 class CheckViewSet(ModelViewSet):
@@ -30,11 +18,13 @@ class CheckViewSet(ModelViewSet):
 
 
 class Erp(GenericAPIView):
+    # serializer_class = CheckOrderSerializer
     serializer_class = ChecksSerializer
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
+        # serializer = CheckOrderSerializer(data=request.data)
         serializer = ChecksSerializer(data=request.data)
-        print(request.data['type'])
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)

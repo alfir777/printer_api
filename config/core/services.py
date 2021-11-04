@@ -6,10 +6,13 @@ import os
 import requests
 from base64 import b64encode
 
+from .models import Check
 
-def get_html_to_pdf(check) -> None:
+
+def get_html_to_pdf(check_id) -> None:
     url = f"http://{os.environ['WKHTMLTODPF_HOST']}:{os.environ['WKHTMLTODPF_PORT']}/"
 
+    check = Check.objects.get(pk=check_id)
     context = {
         'check': check,
     }

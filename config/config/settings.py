@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_yasg',
+    "django_rq",
 
     'core.apps.CoreConfig',
 ]
@@ -156,3 +157,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': '192.168.101.120',
+        'PORT': 6379,
+        'DB': 0,
+        'PASSWORD': '',
+        'DEFAULT_TIMEOUT': 360,
+    },
+}

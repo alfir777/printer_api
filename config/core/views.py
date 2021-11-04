@@ -19,10 +19,10 @@ def index(request):
         }
         return JsonResponse(response, status=401)
 
-    check = Check.objects.get(pk=8)
+    check = Check.objects.get(pk=9)
 
     context = {
         'check': check,
     }
-    get_html_to_pdf(check)
+    get_html_to_pdf(9)
     return render(request, 'kitchen_check.html', context=context)
