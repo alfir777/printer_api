@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 import requests
@@ -6,7 +7,7 @@ from .services import get_html_to_pdf
 
 
 def new_checks():
-    url = 'http://127.0.0.1:8000/new_checks/123/'
+    url = f"http://{os.environ['IP_SERVER']}:{os.environ['IP_SERVER_PORT']}/new_checks/{os.environ['API_KEY_TASKS']}/"
     headers = {
         'Content-Type': 'application/json',
     }
@@ -18,6 +19,6 @@ def new_checks():
 def streams_tasks(scheduler):
     scheduler.schedule(
         scheduled_time=datetime.utcnow(),
-        func=get_html_to_pdf,
+        func=new_checks,
         interval=10,
     )

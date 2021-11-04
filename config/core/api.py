@@ -1,3 +1,5 @@
+import os
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse, HttpResponse
 from rest_framework.generics import GenericAPIView
@@ -8,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Check, Printer
-from .serializers import ChecksSerializer, CheckOrderSerializer
+from .serializers import ChecksSerializer
 
 
 class CheckViewSet(ModelViewSet):
@@ -18,12 +20,10 @@ class CheckViewSet(ModelViewSet):
 
 
 class Erp(GenericAPIView):
-    # serializer_class = CheckOrderSerializer
     serializer_class = ChecksSerializer
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        # serializer = CheckOrderSerializer(data=request.data)
         serializer = ChecksSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -43,7 +43,8 @@ class App(APIView):
     def get(self, request, api_key):
         """Список доступных чеков для печати"""
         try:
-            printer = Printer.objects.get(api_key=api_key)
+            if not os.environ['API_KEY_TASKS'] == api_key:
+                printer = Printer.objects.get(api_key=api_key)
         except ObjectDoesNotExist:
             response = {
                 'error': 'Ошибка авторизации'

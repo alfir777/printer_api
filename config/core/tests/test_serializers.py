@@ -111,6 +111,4 @@ class ChecksSerializerTestCase(TestCase):
                 "printer_id": 4
             },
         ]
-        print(expected_data)
-        print(serializer_data)
         self.assertEqual(expected_data, serializer_data)
