@@ -6,23 +6,26 @@ from core.serializers import ChecksSerializer
 
 
 class ChecksSerializerTestCase(TestCase):
+    printer1 = None
+    printer2 = None
+
     @classmethod
     def setUpTestData(cls):
         cls.user = User.objects.create(username='test_username')
-        printer1 = Printer.objects.create(
+        cls.printer1 = Printer.objects.create(
             name='Printer 1',
             api_key='Ключ доступа к API',
             check_type='kitchen',
             point_id=1
         )
-        printer2 = Printer.objects.create(
+        cls.printer2 = Printer.objects.create(
             name='Printer 2',
             api_key='Ключ доступа к API',
             check_type='client',
             point_id=2
         )
         cls.check1 = Check.objects.create(
-            printer_id=printer1,
+            printer_id=cls.printer1,
             type='kitchen',
             order={"id": 123456,
                    "items": [{"name": "Вкусная пицца", "quantity": 2, "unit_price": 250},
@@ -35,7 +38,7 @@ class ChecksSerializerTestCase(TestCase):
             pdf_file='',
         )
         cls.check2 = Check.objects.create(
-            printer_id=printer2,
+            printer_id=cls.printer2,
             type='client',
             order={"id": 123456,
                    "items": [{"name": "Вкусная пицца", "quantity": 2, "unit_price": 250},
@@ -79,7 +82,7 @@ class ChecksSerializerTestCase(TestCase):
                 },
                 "status": "new",
                 "pdf_file": None,
-                "printer_id": 3
+                "printer_id": self.printer1.pk
             },
             {
                 "id": self.check2.pk,
@@ -108,7 +111,7 @@ class ChecksSerializerTestCase(TestCase):
                 },
                 "status": "new",
                 "pdf_file": None,
-                "printer_id": 4
+                "printer_id": self.printer2.pk
             },
         ]
         self.assertEqual(expected_data, serializer_data)

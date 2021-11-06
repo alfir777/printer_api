@@ -7,16 +7,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
 
 from .models import Check, Printer
 from .serializers import ChecksSerializer
-
-
-class CheckViewSet(ModelViewSet):
-    """API для сервиса печати чеков"""
-    queryset = Check.objects.all()
-    serializer_class = ChecksSerializer
 
 
 class Erp(GenericAPIView):
@@ -69,7 +62,7 @@ class App_pdf(APIView):
     """Методы API для приложения"""
 
     def get(self, request, check_id, api_key):
-        """Список доступных чеков для печати"""
+        """PDF-файл чека"""
         try:
             printer = Printer.objects.get(api_key=api_key)
         except ObjectDoesNotExist:
@@ -79,7 +72,6 @@ class App_pdf(APIView):
             return JsonResponse(response, status=401)
         try:
             check = Check.objects.get(pk=check_id)
-            print(type(check.pdf_file))
 
             serializer = ChecksSerializer(check, many=False)
             try:
