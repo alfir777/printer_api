@@ -21,12 +21,9 @@ class Erp(GenericAPIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
-        response = {
-            'error': 'Ошибка авторизации'
-        }
         if serializer.errors['printer_id']:
             response = {
-                'error': 'Ошибка авторизации'}
+                'error': 'Не существует принтера с таким ID'}
         return JsonResponse(response, status=400)
 
 
@@ -52,10 +49,6 @@ class App(APIView):
                 'info': 'Все чеки распечатаны'
             }
             return JsonResponse(response)
-        response = {
-            'error': 'Исключительный случай'
-        }
-        return JsonResponse(response)
 
 
 class App_pdf(APIView):
@@ -72,23 +65,18 @@ class App_pdf(APIView):
             return JsonResponse(response, status=401)
         try:
             check = Check.objects.get(pk=check_id)
-
             serializer = ChecksSerializer(check, many=False)
-            try:
-                with open(check.pdf_file.path, 'rb') as file:
-                    response = HttpResponse(file, content_type='application/pdf')
-            except ValueError:
-                response = {
-                    'error': 'Для данного чека не сгенерирован PDF-файл'
-                }
-                return JsonResponse(response, status=400)
-            return response
         except ObjectDoesNotExist:
             response = {
                 'info': 'Данного чека не существует'
             }
             return JsonResponse(response, status=400)
-        response = {
-            'error': 'Исключительный случай'
-        }
-        return JsonResponse(response)
+        try:
+            with open(check.pdf_file.path, 'rb') as file:
+                response = HttpResponse(file, content_type='application/pdf')
+        except ValueError:
+            response = {
+                'error': 'Для данного чека не сгенерирован PDF-файл'
+            }
+            return JsonResponse(response, status=400)
+        return response
