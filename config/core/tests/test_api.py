@@ -65,6 +65,26 @@ class ErpApiTestCase(APITestCase):
                                     content_type='application/json')
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
+    def test_code_403(self):
+        data = {
+            "type": "client",
+            "order": {"id": 123457,
+                      "items": [
+                          {"name": "Пицца", "quantity": 1, "unit_price": 250},
+                          {"name": "Филадельфия", "quantity": 1, "unit_price": 400}
+                      ],
+                      "price": 650,
+                      "client": {"name": "Петр", "phone": 9173332242},
+                      "address": "г. Уфа, ул. Московская, д. 102",
+                      "point_id": 1},
+            "status": "new",
+            "printer_id": 9173332242
+        }
+        json_data = json.dumps(data)
+        response = self.client.post('/create_checks/', data=json_data,
+                                    content_type='application/json')
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
 
 class AppApiTestCase(APITestCase):
     printer1 = None
@@ -72,7 +92,6 @@ class AppApiTestCase(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create(username='test_username')
         cls.printer1 = Printer.objects.create(
             name='Printer 1',
             api_key='12345',
@@ -131,7 +150,6 @@ class AppPdfApiTestCase(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create(username='test_username')
         cls.printer1 = Printer.objects.create(
             name='Printer 1',
             api_key='12345',
