@@ -6,12 +6,14 @@ services:
     restart: unless-stopped
     ports:
       - '6379:6379'
+
   wkhtmltopdf-aas:
     image: openlabs/docker-wkhtmltopdf-aas:latest
     ports:
       - '49490:80'
     volumes:
       - .:/data
+
   postgres:
     image: postgres:9.6
     env_file:

@@ -10,7 +10,7 @@ from core.models import Printer, Check
 from core.serializers import ChecksSerializer
 
 
-class ErpApiTestCase(APITestCase):
+class CreateChecksTestCase(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -22,71 +22,53 @@ class ErpApiTestCase(APITestCase):
             check_type='kitchen',
             point_id=1
         )
+        cls.data = {
+            "id": 123457,
+            "price": 650,
+            "type": "client",
+            "items": [
+                {"name": "Пицца", "quantity": 1, "unit_price": 250},
+                {"name": "Филадельфия", "quantity": 1, "unit_price": 400}
+            ],
+            "address": "г. Уфа, ул. Московская, д. 102",
+            "client": {"name": "Петр", "phone": 9173332242},
+            "point_id": 1,
+        }
 
     def test_create(self):
         self.client.force_login(self.user)
-        data = {
-            "type": "client",
-            "order": {"id": 123457,
-                      "items": [
-                          {"name": "Пицца", "quantity": 1, "unit_price": 250},
-                          {"name": "Филадельфия", "quantity": 1, "unit_price": 400}
-                      ],
-                      "price": 650,
-                      "client": {"name": "Петр", "phone": 9173332242},
-                      "address": "г. Уфа, ул. Московская, д. 102",
-                      "point_id": 1},
-            "status": "new",
-            "printer_id": self.printer1.pk
-        }
-        json_data = json.dumps(data)
+        json_data = json.dumps(self.data)
         response = self.client.post('/create_checks/', data=json_data,
                                     content_type='application/json')
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
 
     def test_code_400(self):
-        self.client.force_login(self.user)
         data = {
+            "id": 123457,
+            "price": 650,
             "type": "client",
-            "order": {"id": 123457,
-                      "items": [
-                          {"name": "Пицца", "quantity": 1, "unit_price": 250},
-                          {"name": "Филадельфия", "quantity": 1, "unit_price": 400}
-                      ],
-                      "price": 650,
-                      "client": {"name": "Петр", "phone": 9173332242},
-                      "address": "г. Уфа, ул. Московская, д. 102",
-                      "point_id": 1},
-            "status": "new",
-            "printer_id": 9173332242
+            "items": [
+                {"name": "Пицца", "quantity": 1, "unit_price": 250},
+                {"name": "Филадельфия", "quantity": 1, "unit_price": 400}
+            ],
+            "address": "г. Уфа, ул. Московская, д. 102",
+            "client": {"name": "Петр", "phone": 9173332242},
+            "point_id": 2,
         }
+        self.client.force_login(self.user)
         json_data = json.dumps(data)
         response = self.client.post('/create_checks/', data=json_data,
                                     content_type='application/json')
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
 
     def test_code_403(self):
-        data = {
-            "type": "client",
-            "order": {"id": 123457,
-                      "items": [
-                          {"name": "Пицца", "quantity": 1, "unit_price": 250},
-                          {"name": "Филадельфия", "quantity": 1, "unit_price": 400}
-                      ],
-                      "price": 650,
-                      "client": {"name": "Петр", "phone": 9173332242},
-                      "address": "г. Уфа, ул. Московская, д. 102",
-                      "point_id": 1},
-            "status": "new",
-            "printer_id": 9173332242
-        }
-        json_data = json.dumps(data)
+        json_data = json.dumps(self.data)
         response = self.client.post('/create_checks/', data=json_data,
                                     content_type='application/json')
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
 
 
-class AppApiTestCase(APITestCase):
+class NewChecksTestCase(APITestCase):
     printer1 = None
     printer2 = None
 
@@ -132,17 +114,17 @@ class AppApiTestCase(APITestCase):
         )
 
     def test_get(self):
-        response = self.client.get(f'/new_checks/{self.printer1.api_key}/', follow=True)
+        response = self.client.get(f'/new_checks/?api_key={self.printer1.api_key}', follow=True)
         serializer_data = ChecksSerializer([self.check1, self.check2], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(serializer_data, response.data)
+        self.assertEqual({'checks': serializer_data}, response.data)
 
     def test_api_key(self):
-        response = self.client.get(f'/new_checks/9173332242/', follow=True)
+        response = self.client.get(f'/new_checks/?api_key=9173332242', follow=True)
         self.assertEqual(status.HTTP_401_UNAUTHORIZED, response.status_code)
 
 
-class AppPdfApiTestCase(APITestCase):
+class CheckPDFTestCase(APITestCase):
     check2 = None
     check1 = None
     printer1 = None
@@ -190,13 +172,9 @@ class AppPdfApiTestCase(APITestCase):
         )
 
     def test_get(self):
-        response = self.client.get(f'/check/{self.check1.pk}/{self.printer1.api_key}/')
+        response = self.client.get(f'/check/?api_key={self.printer1.api_key}&check_id={self.check1.pk}')
         self.assertEqual(status.HTTP_200_OK, response.status_code)
 
     def test_api_key(self):
-        response = self.client.get(f'/check/{self.check1.pk}/9173332242/')
+        response = self.client.get(f'/check/?api_key=9173332242&check_id={self.check1.pk}')
         self.assertEqual(status.HTTP_401_UNAUTHORIZED, response.status_code)
-
-    def test_get_check1_pk(self):
-        response = self.client.get(f'/check/9173332242/{self.printer1.api_key}/')
-        self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)

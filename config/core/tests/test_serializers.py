@@ -57,61 +57,9 @@ class ChecksSerializerTestCase(TestCase):
         expected_data = [
             {
                 "id": self.check1.pk,
-                "type": "kitchen",
-                "order": {
-                    "id": 123456,
-                    "items": [
-                        {
-                            "name": "Вкусная пицца",
-                            "quantity": 2,
-                            "unit_price": 250
-                        },
-                        {
-                            "name": "Не менее вкусные роллы",
-                            "quantity": 1,
-                            "unit_price": 280
-                        }
-                    ],
-                    "price": 780,
-                    "client": {
-                        "name": "Иван",
-                        "phone": 9173332222
-                    },
-                    "address": "г. Уфа, ул. Ленина, д. 42",
-                    "point_id": 1
-                },
-                "status": "new",
-                "pdf_file": None,
-                "printer_id": self.printer1.pk
             },
             {
                 "id": self.check2.pk,
-                "type": "client",
-                "order": {
-                    "id": 123456,
-                    "items": [
-                        {
-                            "name": "Вкусная пицца",
-                            "quantity": 2,
-                            "unit_price": 250
-                        },
-                        {
-                            "name": "Не менее вкусные роллы",
-                            "quantity": 1,
-                            "unit_price": 280
-                        }
-                    ],
-                    "price": 780,
-                    "client": {
-                        "name": "Иван",
-                        "phone": 9173332222
-                    },
-                    "address": "г. Уфа, ул. Ленина, д. 42",
-                    "point_id": 1
-                },
-                "status": "new",
-                "pdf_file": None,
-                "printer_id": self.printer2.pk
             },
         ]
         self.assertEqual(expected_data, serializer_data)

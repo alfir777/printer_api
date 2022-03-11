@@ -1,9 +1,10 @@
 /.idea/
 /venv/
+/env/
 /config/static/
 /config/core/migrations/
+/htmlcov/
 *.log
 .env
-probe.py
 .coverage
-/htmlcov/
+probe.py

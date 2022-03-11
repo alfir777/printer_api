@@ -1,40 +1,85 @@
-import os
-
+import django_rq
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse, HttpResponse
-from rest_framework.generics import GenericAPIView
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.decorators import action
+from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
 from .models import Check, Printer
-from .serializers import ChecksSerializer
+from .serializers import ChecksSerializer, CreateChecksSerializer
+from .tasks import get_html_to_pdf
+
+RESPONSE_SCHEMA_DICT = {
+    "200": openapi.Response(
+        description="Чеки успешно созданы",
+        examples={
+            "application/json": {
+                "ok": "Чеки успешно созданы"
+            }
+        },
+    ),
+    "400": openapi.Response(
+        description='При создании чеков произошла одна из ошибок:\n'
+                    '1. Для данного заказа уже созданы чеки\n'
+                    '2. Для данной точки не настроено ни одного принтера\n',
+        examples={
+            "application/json": {
+                "error": "string"
+            }
+        },
+    ),
+}
 
 
-class Erp(GenericAPIView):
-    serializer_class = ChecksSerializer
+class CreateChecks(CreateAPIView):
+    serializer_class = CreateChecksSerializer
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        methods=['POST', ],
+        responses=RESPONSE_SCHEMA_DICT,
+        operation_summary='Создание чеков для заказа',
+        tags=['erp', ],
+    )
+    @action(detail=False, methods=['POST', ])
     def post(self, request, *args, **kwargs):
-        serializer = ChecksSerializer(data=request.data)
+        serializer = CreateChecksSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
-        if serializer.errors['printer_id']:
-            response = {
-                'error': 'Не существует принтера с таким ID'}
-        return JsonResponse(response, status=400)
+            try:
+                serializer.save()
+                data = serializer.data
+                django_rq.enqueue(get_html_to_pdf, data)
+                response = {
+                    'ok': 'Чеки успешно созданы'
+                }
+                return JsonResponse(response, status=201)
+            except ValueError:
+                response = {
+                    'error': 'string'
+                }
+                return JsonResponse(response, status=400)
 
 
-class App(APIView):
-    """Методы API для приложения"""
+class NewChecks(APIView):
 
-    def get(self, request, api_key):
-        """Список доступных чеков для печати"""
+    @swagger_auto_schema(
+        methods=['GET', ],
+        manual_parameters=[
+            openapi.Parameter('api_key', openapi.IN_QUERY, description="Ключ доступа к API", type=openapi.TYPE_STRING,
+                              required=True)
+        ],
+        operation_summary='Список доступных чеков для печати',
+        tags=['app', ],
+    )
+    @action(detail=False, methods=['GET', ])
+    def get(self, request):
+        api_key = request.query_params.get('api_key')
         try:
-            if not os.environ['API_KEY_TASKS'] == api_key:
-                printer = Printer.objects.get(api_key=api_key)
+            Printer.objects.get(api_key=api_key)
         except ObjectDoesNotExist:
             response = {
                 'error': 'Ошибка авторизации'
@@ -43,7 +88,7 @@ class App(APIView):
         try:
             queryset = Check.objects.filter(status='new')
             serializer = ChecksSerializer(queryset, many=True)
-            return Response(serializer.data)
+            return Response({'checks': serializer.data})
         except ObjectDoesNotExist:
             response = {
                 'info': 'Все чеки распечатаны'
@@ -51,13 +96,25 @@ class App(APIView):
             return JsonResponse(response)
 
 
-class App_pdf(APIView):
-    """Методы API для приложения"""
+class CheckPDF(APIView):
 
-    def get(self, request, check_id, api_key):
-        """PDF-файл чека"""
+    @swagger_auto_schema(
+        methods=['GET', ],
+        manual_parameters=[
+            openapi.Parameter('api_key', openapi.IN_QUERY, description="Ключ доступа к API", type=openapi.TYPE_STRING,
+                              required=True),
+            openapi.Parameter('check_id', openapi.IN_QUERY, description="ID чека", type=openapi.TYPE_INTEGER,
+                              required=True)
+        ],
+        operation_summary='PDF-файл чека',
+        tags=['app', ]
+    )
+    @action(detail=False, methods=['GET', ])
+    def get(self, request):
+        api_key = request.query_params.get('api_key')
+        check_id = request.query_params.get('check_id')
         try:
-            printer = Printer.objects.get(api_key=api_key)
+            Printer.objects.get(api_key=api_key)
         except ObjectDoesNotExist:
             response = {
                 'error': 'Ошибка авторизации'
@@ -65,7 +122,6 @@ class App_pdf(APIView):
             return JsonResponse(response, status=401)
         try:
             check = Check.objects.get(pk=check_id)
-            serializer = ChecksSerializer(check, many=False)
         except ObjectDoesNotExist:
             response = {
                 'info': 'Данного чека не существует'
@@ -79,4 +135,9 @@ class App_pdf(APIView):
                 'error': 'Для данного чека не сгенерирован PDF-файл'
             }
             return JsonResponse(response, status=400)
-        return response
+        except FileNotFoundError:
+            response = {
+                'error': 'Для данного чека PDF-файл сформирован, но недоступен'
+            }
+            return JsonResponse(response, status=400)
+        return HttpResponse(response, status=200)

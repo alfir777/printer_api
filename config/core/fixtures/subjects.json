@@ -3,7 +3,7 @@
     "model": "core.printer",
     "pk": 1,
     "fields": {
-        "name": "РџСЂРёРЅС‚РµСЂ РјРµРЅРµРґР¶РµСЂР°",
+        "name": "Принтер менеджера",
         "api_key": "123",
         "check_type": "client",
         "point_id": 1
@@ -13,7 +13,7 @@
     "model": "core.printer",
     "pk": 2,
     "fields": {
-        "name": "РџСЂРёРЅС‚РµСЂ РєСѓС…РЅРё",
+        "name": "Принтер кухни",
         "api_key": "12345",
         "check_type": "kitchen",
         "point_id": 1
@@ -29,22 +29,22 @@
             "id": 123456,
             "items": [
                 {
-                    "name": "Р’РєСѓСЃРЅР°СЏ РїРёС†С†Р°",
+                    "name": "Вкусная пицца",
                     "quantity": 2,
                     "unit_price": 250
                 },
                 {
-                    "name": "РќРµ РјРµРЅРµРµ РІРєСѓСЃРЅС‹Рµ СЂРѕР»Р»С‹",
+                    "name": "Не менее вкусные роллы",
                     "quantity": 1,
                     "unit_price": 280
                 }
             ],
             "price": 780,
             "client": {
-                "name": "РРІР°РЅ",
+                "name": "Иван",
                 "phone": 9173332222
             },
-            "address": "Рі. РЈС„Р°, СѓР». Р›РµРЅРёРЅР°, Рґ. 42",
+            "address": "г. Уфа, ул. Ленина, д. 42",
             "point_id": 1
         },
         "status": "rendered",
@@ -61,22 +61,22 @@
             "id": 123460,
             "items": [
                 {
-                    "name": "РџРёС†С†Р°",
+                    "name": "Пицца",
                     "quantity": 1,
                     "unit_price": 260
                 },
                 {
-                    "name": "Р¤РёР»Р°РґРµР»СЊС„РёСЏ",
+                    "name": "Филадельфия",
                     "quantity": 1,
                     "unit_price": 300
                 }
             ],
             "price": 560,
             "client": {
-                "name": "РњР°РєСЃРёРј",
+                "name": "Максим",
                 "phone": 9173331142
             },
-            "address": "Рі. РњРѕСЃРєРІР°, СѓР». РњРѕСЃРєРѕРІСЃРєР°СЏ, Рґ. 102",
+            "address": "г. Москва, ул. Московская, д. 102",
             "point_id": 1
         },
         "status": "new",
@@ -93,22 +93,22 @@
             "id": 123457,
             "items": [
                 {
-                    "name": "РџРёС†С†Р°",
+                    "name": "Пицца",
                     "quantity": 1,
                     "unit_price": 250
                 },
                 {
-                    "name": "Р¤РёР»Р°РґРµР»СЊС„РёСЏ",
+                    "name": "Филадельфия",
                     "quantity": 1,
                     "unit_price": 400
                 }
             ],
             "price": 650,
             "client": {
-                "name": "РџРµС‚СЂ",
+                "name": "Петр",
                 "phone": 9173332242
             },
-            "address": "Рі. РЈС„Р°, СѓР». РњРѕСЃРєРѕРІСЃРєР°СЏ, Рґ. 102",
+            "address": "г. Уфа, ул. Московская, д. 102",
             "point_id": 1
         },
         "status": "new",
@@ -125,22 +125,22 @@
             "id": 123466,
             "items": [
                 {
-                    "name": "РџРёС†С†Р°",
+                    "name": "Пицца",
                     "quantity": 1,
                     "unit_price": 260
                 },
                 {
-                    "name": "Р¤РёР»Р°РґРµР»СЊС„РёСЏ",
+                    "name": "Филадельфия",
                     "quantity": 2,
                     "unit_price": 600
                 }
             ],
             "price": 860,
             "client": {
-                "name": "РњР°РєСЃРёРј",
+                "name": "Максим",
                 "phone": 9173331142
             },
-            "address": "Рі. РњРѕСЃРєРІР°, СѓР». РњРѕСЃРєРѕРІСЃРєР°СЏ, Рґ. 102",
+            "address": "г. Москва, ул. Московская, д. 102",
             "point_id": 1
         },
         "status": "new",
@@ -157,22 +157,22 @@
             "id": 123460,
             "items": [
                 {
-                    "name": "Р’РєСѓСЃРЅР°СЏ РїРёС†С†Р°",
+                    "name": "Вкусная пицца",
                     "quantity": 2,
                     "unit_price": 250
                 },
                 {
-                    "name": "РќРµ РјРµРЅРµРµ РІРєСѓСЃРЅС‹Рµ СЂРѕР»Р»С‹",
+                    "name": "Не менее вкусные роллы",
                     "quantity": 1,
                     "unit_price": 280
                 }
             ],
             "price": 780,
             "client": {
-                "name": "РРІР°РЅ",
+                "name": "Иван",
                 "phone": 9173332222
             },
-            "address": "Рі. РЈС„Р°, СѓР». Р›РµРЅРёРЅР°, Рґ. 42",
+            "address": "г. Уфа, ул. Ленина, д. 42",
             "point_id": 1
         },
         "status": "new",
@@ -189,22 +189,22 @@
             "id": 123461,
             "items": [
                 {
-                    "name": "Р’РєСѓСЃРЅР°СЏ РїРёС†С†Р°",
+                    "name": "Вкусная пицца",
                     "quantity": 2,
                     "unit_price": 250
                 },
                 {
-                    "name": "РќРµ РјРµРЅРµРµ РІРєСѓСЃРЅС‹Рµ СЂРѕР»Р»С‹",
+                    "name": "Не менее вкусные роллы",
                     "quantity": 1,
                     "unit_price": 280
                 }
             ],
             "price": 780,
             "client": {
-                "name": "РРІР°РЅ",
+                "name": "Иван",
                 "phone": 9173332222
             },
-            "address": "Рі. РЈС„Р°, СѓР». Р›РµРЅРёРЅР°, Рґ. 42",
+            "address": "г. Уфа, ул. Ленина, д. 42",
             "point_id": 1
         },
         "status": "new",
@@ -221,22 +221,22 @@
             "id": 123461,
             "items": [
                 {
-                    "name": "Р’РєСѓСЃРЅР°СЏ РїРёС†С†Р°",
+                    "name": "Вкусная пицца",
                     "quantity": 2,
                     "unit_price": 250
                 },
                 {
-                    "name": "РќРµ РјРµРЅРµРµ РІРєСѓСЃРЅС‹Рµ СЂРѕР»Р»С‹",
+                    "name": "Не менее вкусные роллы",
                     "quantity": 1,
                     "unit_price": 280
                 }
             ],
             "price": 780,
             "client": {
-                "name": "РРІР°РЅ",
+                "name": "Иван",
                 "phone": 9173332222
             },
-            "address": "Рі. РЈС„Р°, СѓР». Р›РµРЅРёРЅР°, Рґ. 42",
+            "address": "г. Уфа, ул. Ленина, д. 42",
             "point_id": 1
         },
         "status": "printed",
@@ -253,26 +253,26 @@
             "id": 123457,
             "items": [
                 {
-                    "name": "РџРёС†С†Р°",
+                    "name": "Пицца",
                     "quantity": 1,
                     "unit_price": 250
                 },
                 {
-                    "name": "Р¤РёР»Р°РґРµР»СЊС„РёСЏ",
+                    "name": "Филадельфия",
                     "quantity": 1,
                     "unit_price": 400
                 }
             ],
             "price": 650,
             "client": {
-                "name": "РџРµС‚СЂ",
+                "name": "Петр",
                 "phone": 9173332242
             },
-            "address": "Рі. РЈС„Р°, СѓР». РњРѕСЃРєРѕРІСЃРєР°СЏ, Рґ. 102",
+            "address": "г. Уфа, ул. Московская, д. 102",
             "point_id": 1
         },
-        "status": "new",
-        "pdf_file": ""
+        "status": "printed",
+        "pdf_file": "pdf/123457_client_kMRGZ63.pdf"
     }
 },
 {
@@ -285,22 +285,22 @@
             "id": 123460,
             "items": [
                 {
-                    "name": "РџРёС†С†Р°",
+                    "name": "Пицца",
                     "quantity": 1,
                     "unit_price": 260
                 },
                 {
-                    "name": "Р¤РёР»Р°РґРµР»СЊС„РёСЏ",
+                    "name": "Филадельфия",
                     "quantity": 1,
                     "unit_price": 300
                 }
             ],
             "price": 560,
             "client": {
-                "name": "РњР°РєСЃРёРј",
+                "name": "Максим",
                 "phone": 9173331142
             },
-            "address": "Рі. РњРѕСЃРєРІР°, СѓР». РњРѕСЃРєРѕРІСЃРєР°СЏ, Рґ. 102",
+            "address": "г. Москва, ул. Московская, д. 102",
             "point_id": 1
         },
         "status": "new",
@@ -317,22 +317,214 @@
             "id": 123457,
             "items": [
                 {
-                    "name": "РџРёС†С†Р°",
+                    "name": "Пицца",
                     "quantity": 1,
                     "unit_price": 250
                 },
                 {
-                    "name": "Р¤РёР»Р°РґРµР»СЊС„РёСЏ",
+                    "name": "Филадельфия",
                     "quantity": 1,
                     "unit_price": 400
                 }
             ],
             "price": 650,
             "client": {
-                "name": "РџРµС‚СЂ",
+                "name": "Петр",
                 "phone": 9173332242
             },
-            "address": "Рі. РЈС„Р°, СѓР». РњРѕСЃРєРѕРІСЃРєР°СЏ, Рґ. 102",
+            "address": "г. Уфа, ул. Московская, д. 102",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 13,
+    "fields": {
+        "printer_id": 1,
+        "type": "client",
+        "order": {
+            "id": 123456,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 14,
+    "fields": {
+        "printer_id": 2,
+        "type": "client",
+        "order": {
+            "id": 123456,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 15,
+    "fields": {
+        "printer_id": 1,
+        "type": "client",
+        "order": {
+            "id": 223456,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 16,
+    "fields": {
+        "printer_id": 2,
+        "type": "client",
+        "order": {
+            "id": 223456,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 17,
+    "fields": {
+        "printer_id": 1,
+        "type": "client",
+        "order": {
+            "id": 323456,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
+            "point_id": 1
+        },
+        "status": "new",
+        "pdf_file": ""
+    }
+},
+{
+    "model": "core.check",
+    "pk": 18,
+    "fields": {
+        "printer_id": 2,
+        "type": "client",
+        "order": {
+            "id": 323456,
+            "items": [
+                {
+                    "name": "Вкусная пицца",
+                    "quantity": 2,
+                    "unit_price": 250
+                },
+                {
+                    "name": "Не менее вкусные роллы",
+                    "quantity": 1,
+                    "unit_price": 280
+                }
+            ],
+            "price": 780,
+            "client": {
+                "name": "Иван",
+                "phone": 9173332222
+            },
+            "address": "г. Уфа, ул. Ленина, д. 42",
             "point_id": 1
         },
         "status": "new",

@@ -160,10 +160,14 @@ MEDIA_URL = '/media/'
 
 RQ_QUEUES = {
     'default': {
-        'HOST': '192.168.101.120',
+        'HOST': os.environ['RQ_HOST'],
         'PORT': 6379,
         'DB': 0,
         'PASSWORD': '',
         'DEFAULT_TIMEOUT': 360,
     },
+}
+
+SWAGGER_SETTINGS = {
+    'DEFAULT_MODEL_DEPTH': -1,
 }

@@ -1,7 +1,14 @@
 from django.db import models
 
 
-class Printer(models.Model):
+class BaseModel(models.Model):
+    objects = models.Manager()
+
+    class Meta:
+        abstract = True
+
+
+class Printer(BaseModel):
     name = models.CharField(max_length=150, verbose_name='Название принтера')
     api_key = models.CharField(max_length=500, verbose_name='Ключ доступа к API')
     check_type_choices = (
@@ -19,7 +26,7 @@ class Printer(models.Model):
         verbose_name_plural = 'Принтеры'
 
 
-class Check(models.Model):
+class Check(BaseModel):
     printer_id = models.ForeignKey(Printer, on_delete=models.PROTECT, verbose_name='Принтер')
     type_choices = (
         ('kitchen', 'kitchen'),
